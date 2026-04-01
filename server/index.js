@@ -1,9 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { getUncachableGoogleSheetClient, getUncachableGmailClient } = require('./googleClients');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const SPREADSHEET_ID = '1A4l7FG54w_qgFIUBCJk53Wo56pdSSdhZLVEmBOTBb9o';
 const NOTIFY_EMAIL = 'graduation@aaroncole.dev';
@@ -61,6 +62,12 @@ app.post('/api/rsvp', async (req, res) => {
   }
 
   res.json({ success: true });
+});
+
+const buildDir = path.join(__dirname, '..', 'build');
+app.use(express.static(buildDir));
+app.use((req, res) => {
+  res.sendFile(path.join(buildDir, 'index.html'));
 });
 
 app.listen(PORT, '0.0.0.0', () => {

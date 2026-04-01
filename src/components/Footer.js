@@ -14,7 +14,7 @@ const Footer = () => {
           href="mailto:graduation@aaronsgrad.org"
           className="text-white text-sm sm:text-md font-medium hover:text-yellow-500 dark:text-black dark:font-bolder dark:hover:text-red-700"
         >
-          graduation@aaronsgrad.org
+          graduation@grad.acole.te
         </a>
       </div>
     </footer>

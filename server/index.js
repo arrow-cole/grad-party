@@ -5,7 +5,7 @@ const { getUncachableGoogleSheetClient, getUncachableGmailClient } = require('./
 const app = express();
 const PORT = 3001;
 
-const SPREADSHEET_ID = '1Fko6l1fIvmWYjZnAbakthVuTXQUAHsXEhpmB_lzzcT0';
+const SPREADSHEET_ID = '1A4l7FG54w_qgFIUBCJk53Wo56pdSSdhZLVEmBOTBb9o';
 const NOTIFY_EMAIL = 'graduation@aaroncole.dev';
 
 app.use(cors());
@@ -25,7 +25,7 @@ app.post('/api/rsvp', async (req, res) => {
     const sheets = await getUncachableGoogleSheetClient();
     await sheets.spreadsheets.values.append({
       spreadsheetId: SPREADSHEET_ID,
-      range: 'Sheet1!A:D',
+      range: 'RSVPs!A:D',
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [[timestamp, name, email, attendanceLabel]]

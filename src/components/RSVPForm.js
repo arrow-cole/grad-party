@@ -14,7 +14,7 @@ const RsvpForm = () => {
     e.preventDefault();
 
     try {
-      const res = await fetch("https://formspree.io/f/mvzvrbal", {
+      const res = await fetch("/api/rsvp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -23,7 +23,6 @@ const RsvpForm = () => {
           name,
           email,
           attendance,
-          _subject: "New RSVP Submission",
         }),
       });
 

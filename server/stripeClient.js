@@ -1,7 +1,7 @@
 const Stripe = require('stripe');
 const { StripeSync } = require('stripe-replit-sync');
 
-async function getStripeCredentials() {
+async function getCredentials() {
   const hostname = process.env.REPLIT_CONNECTORS_HOSTNAME;
   const xReplitToken = process.env.REPL_IDENTITY
     ? 'repl ' + process.env.REPL_IDENTITY
@@ -11,44 +11,49 @@ async function getStripeCredentials() {
 
   if (!xReplitToken) throw new Error('X-Replit-Token not found');
 
-  const data = await fetch(
-    `https://${hostname}/api/v2/connection?include_secrets=true&connector_names=stripe`,
-    {
-      headers: {
-        Accept: 'application/json',
-        'X-Replit-Token': xReplitToken,
-      },
-    }
-  ).then((r) => r.json());
+  const isProduction = process.env.REPLIT_DEPLOYMENT === '1';
+  const targetEnvironment = isProduction ? 'production' : 'development';
+
+  const url = new URL(`https://${hostname}/api/v2/connection`);
+  url.searchParams.set('include_secrets', 'true');
+  url.searchParams.set('connector_names', 'stripe');
+  url.searchParams.set('environment', targetEnvironment);
+
+  const data = await fetch(url.toString(), {
+    headers: { Accept: 'application/json', 'X-Replit-Token': xReplitToken },
+  }).then((r) => r.json());
 
   const item = data.items?.[0];
-  if (!item) throw new Error('Stripe not connected');
+  if (!item || !item.settings?.secret || !item.settings?.publishable) {
+    throw new Error(`Stripe ${targetEnvironment} connection not found`);
+  }
 
-  const secretKey = item.settings?.secret_key || item.settings?.STRIPE_SECRET_KEY;
-  const publishableKey = item.settings?.publishable_key || item.settings?.STRIPE_PUBLISHABLE_KEY;
-
-  if (!secretKey) throw new Error('Stripe secret key not found in connection');
-
-  return { secretKey, publishableKey };
+  return {
+    secretKey: item.settings.secret,
+    publishableKey: item.settings.publishable,
+  };
 }
 
 async function getUncachableStripeClient() {
-  const { secretKey } = await getStripeCredentials();
-  return new Stripe(secretKey, { apiVersion: '2023-10-16' });
+  const { secretKey } = await getCredentials();
+  return new Stripe(secretKey, { apiVersion: '2025-08-27.basil' });
 }
 
 async function getPublishableKey() {
-  const { publishableKey } = await getStripeCredentials();
+  const { publishableKey } = await getCredentials();
   return publishableKey;
 }
 
 let stripeSyncInstance = null;
 async function getStripeSync() {
   if (!stripeSyncInstance) {
-    const { secretKey } = await getStripeCredentials();
+    const { secretKey } = await getCredentials();
     stripeSyncInstance = new StripeSync({
+      poolConfig: {
+        connectionString: process.env.DATABASE_URL,
+        max: 2,
+      },
       stripeSecretKey: secretKey,
-      databaseUrl: process.env.DATABASE_URL,
     });
   }
   return stripeSyncInstance;

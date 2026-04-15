@@ -13,10 +13,10 @@ const Footer = () => {
           RSVP to:
         </p>
         <a
-          href="mailto:graduation@grad.acole.tech"
+          href="mailto:graduation@aaronsgrad.us"
           className="text-white text-sm sm:text-md font-medium hover:text-yellow-500 dark:text-black dark:font-bolder dark:hover:text-red-700"
         >
-          graduation@grad.acole.tech
+          graduation@aaronsgrad.us
         </a>
       </div>
     </footer>

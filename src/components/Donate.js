@@ -9,7 +9,7 @@ function Donate() {
         onClick={() => setOpen(true)}
         className="bg-yellow-500 text-black font-bolder py-2 px-4 rounded-lg hover:bg-red-700 hover:text-white transition-colors duration-300"
       >
-        Info
+        Donate
       </button>
 
       {open && (
@@ -27,26 +27,21 @@ function Donate() {
                 Close
               </button>
             </div>
-            <h2 className="text-xl font-bold text-center text-gray-900 dark:text-white mb-4">
-              Event Information
+            <h2 className="text-xl font-bold text-center text-gray-900 dark:text-white mb-2">
+              Support Aaron's Graduation
             </h2>
-            <div className="text-gray-700 dark:text-gray-300 space-y-3 text-sm">
-              <div>
-                <p className="font-semibold text-red-700">Date & Time</p>
-                <p>June 7th, starting at 4:00 PM</p>
-              </div>
-              <div>
-                <p className="font-semibold text-red-700">Location</p>
-                <p>Westgate Bowl</p>
-              </div>
-              <div>
-                <p className="font-semibold text-red-700">Food & Drinks</p>
-                <p>Drinks and snacks will be provided.</p>
-              </div>
-              <div>
-                <p className="font-semibold text-red-700">Contact</p>
-                <p>graduation@aaroncole.dev</p>
-              </div>
+            <p className="text-center text-gray-500 dark:text-gray-400 text-sm mb-6">
+              Thank you for your generosity! Here's how you can send a gift:
+            </p>
+
+            <div className="bg-green-50 dark:bg-gray-700 rounded-xl p-5 flex flex-col items-center">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Square_Cash_app_logo.svg/120px-Square_Cash_app_logo.svg.png"
+                alt="Cash App"
+                className="h-12 mb-3"
+              />
+              <p className="text-gray-700 dark:text-gray-200 font-medium mb-1">Send via Cash App</p>
+              <p className="text-2xl font-bold text-green-600 tracking-wide">$acolebowl</p>
             </div>
           </div>
         </div>

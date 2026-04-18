@@ -29,12 +29,7 @@ const Location = () => {
               <h3 className="text-lg font-semibold mb-2 text-black dark:text-white">Westgate Bowl</h3>
                 <p className="text-gray-700 dark:text-gray-300">4486 Alpine Ave NW</p>
                 <p className="text-gray-700 dark:text-gray-300">Comstock Park, MI 49321</p>
-            </div> {/*
-            <div className="mb-4">
-              <h3 className="text-lg font-semibold mb-2 text-black dark:text-white">Eagle's Nest Church</h3>
-                <p className="text-gray-700 dark:text-gray-300"> 540 Leonard St NW # A</p>
-                <p className="text-gray-700 dark:text-gray-300">Grand Rapids, MI 49504</p> 
-            </div> */}
+            </div>
             <div className="mb-4">
               <h3 className="text-lg font-semibold mb-2 text-black dark:text-white">Contact</h3>
               <p className="text-gray-700 dark:text-gray-300">Phone: +616 498-8680</p>
@@ -45,7 +40,7 @@ const Location = () => {
               <div className="rounded-lg overflow-hidden">
                 <iframe
                   title="Location Map"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.764104591724!2d36.80351231429615!3d-1.2684080990716893!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f0d5d9f3f5b03%3A0xf499bf2b2506aa0d!2sBoardwalk%20Mall!5e0!3m2!1sen!2ske!4v1650373852907!5m2!1sen!2ske"
+                  src="https://maps.app.goo.gl/vyEfZBHFn1cFoVWZ8"
                   className="w-full h-64"
                   loading="lazy"
                 ></iframe>

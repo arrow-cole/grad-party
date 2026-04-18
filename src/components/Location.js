@@ -40,9 +40,12 @@ const Location = () => {
               <div className="rounded-lg overflow-hidden">
                 <iframe
                   title="Location Map"
-                  src="https://maps.app.goo.gl/vyEfZBHFn1cFoVWZ8"
+                  src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2915.814134553514!2d-85.6906999!3d43.045342!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8819a97ccc89ae41%3A0x59480f6bcfacad13!2sWestgate%20Bowl!5e0!3m2!1sen!2sus!4v1776551339059!5m2!1sen!2sus"
                   className="w-full h-64"
+                  style={{ border: 0 }}
+                  allowFullScreen=""
                   loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
                 ></iframe>
               </div>
             </div>

@@ -7,7 +7,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 const SPREADSHEET_ID = '1A4l7FG54w_qgFIUBCJk53Wo56pdSSdhZLVEmBOTBb9o';
-const NOTIFY_EMAIL = 'graduation@aaroncole.dev';
+const NOTIFY_EMAIL = 'graduation@aaronsgrad.us';
 
 app.use(cors());
 app.use(express.json());

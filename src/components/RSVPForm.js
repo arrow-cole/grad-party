@@ -26,6 +26,8 @@ const RsvpForm = () => {
         }),
       });
 
+      const result = await res.json().catch(() => ({}));
+
       if (res.ok) {
         Swal.fire({
           icon: "success",
@@ -38,13 +40,13 @@ const RsvpForm = () => {
         setAttendance("yes");
         closeModal();
       } else {
-        throw new Error();
+        throw new Error(result.error || "Please try again later.");
       }
     } catch (err) {
       Swal.fire({
         icon: "error",
         title: "Something went wrong",
-        text: "Please try again later.",
+        text: err.message || "Please try again later.",
       });
     }
   };

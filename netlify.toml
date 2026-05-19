@@ -1,0 +1,9 @@
+[build]
+  command = "npm run build"
+  publish = "build"
+  functions = "netlify/functions"
+
+[[redirects]]
+  from = "/api/rsvp"
+  to = "/.netlify/functions/rsvp"
+  status = 200

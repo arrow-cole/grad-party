@@ -5,12 +5,18 @@ const { google } = require('googleapis');
 const SHEETS_SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 const DEFAULT_SERVICE_ACCOUNT_KEY_FILE = path.join(__dirname, '..', 'google-service-account.json');
 
+function getServiceAccountJson() {
+  return process.env.GOOGLE_SERVICE_ACCOUNT_JSON || process.env.google_service_account_json;
+}
+
 function parseServiceAccountCredentials() {
-  if (!process.env.GOOGLE_SERVICE_ACCOUNT_JSON) {
+  const serviceAccountJson = getServiceAccountJson();
+
+  if (!serviceAccountJson) {
     return null;
   }
 
-  const credentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
+  const credentials = JSON.parse(serviceAccountJson);
   if (credentials.private_key) {
     credentials.private_key = credentials.private_key.replace(/\\n/g, '\n');
   }
@@ -20,8 +26,9 @@ function parseServiceAccountCredentials() {
 
 function hasGoogleSheetsServiceAccountAuth() {
   return Boolean(
-    process.env.GOOGLE_SERVICE_ACCOUNT_JSON ||
+    getServiceAccountJson() ||
       process.env.GOOGLE_APPLICATION_CREDENTIALS ||
+      process.env.google_application_credentials ||
       fs.existsSync(DEFAULT_SERVICE_ACCOUNT_KEY_FILE)
   );
 }
@@ -71,7 +78,7 @@ async function getUncachableGoogleSheetClient() {
   if (hasGoogleSheetsServiceAccountAuth()) {
     const auth = new google.auth.GoogleAuth({
       credentials: parseServiceAccountCredentials() || undefined,
-      keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS || DEFAULT_SERVICE_ACCOUNT_KEY_FILE,
+      keyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS || process.env.google_application_credentials || DEFAULT_SERVICE_ACCOUNT_KEY_FILE,
       scopes: [SHEETS_SCOPE]
     });
 

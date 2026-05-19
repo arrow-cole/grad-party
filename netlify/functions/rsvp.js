@@ -1,4 +1,4 @@
-const { getUncachableGoogleSheetClient, hasGoogleSheetsAuth } = require('../../server/googleClients');
+const { appendSheetValues, hasGoogleSheetsAuth } = require('../lib/sheetsClient');
 
 const SPREADSHEET_ID = '1A4l7FG54w_qgFIUBCJk53Wo56pdSSdhZLVEmBOTBb9o';
 
@@ -38,14 +38,10 @@ exports.handler = async function rsvp(event) {
   const timestamp = new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
 
   try {
-    const sheets = await getUncachableGoogleSheetClient();
-    await sheets.spreadsheets.values.append({
+    await appendSheetValues({
       spreadsheetId: SPREADSHEET_ID,
       range: 'RSVPs!A:D',
-      valueInputOption: 'USER_ENTERED',
-      requestBody: {
-        values: [[timestamp, name, email, attending]]
-      }
+      values: [[timestamp, name, email, attending]]
     });
 
     return json(200, { success: true, savedTo: 'sheet' });
